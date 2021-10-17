@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react"
+import "./App.css";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Title from './components/Title'
+import Form from './components/Form'
+import DisplayData from "./components/DisplayData";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyA8WQdixTkFOGEc1srpr7u9fI2-w08NkvQ",
+    authDomain: "jobs-tracker-2a61a.firebaseapp.com",
+    projectId: "jobs-tracker-2a61a",
+    storageBucket: "jobs-tracker-2a61a.appspot.com",
+    messagingSenderId: "535552249481",
+    appId: "1:535552249481:web:5853c5b543defb88728058"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+class App extends Component {
+    render() {
+        return (
+            <div className="main">
+                <Title />
+                <Form />
+                <DisplayData />
+            </div>
+        )
+    }
 }
 
-export default App;
+export default App
