@@ -5,9 +5,19 @@ import { withStyles } from "@mui/styles"
 import { TextField, Button } from "@mui/material"
 
 const styles = {
-    // formContainer: {
+    formContainer: {
+        maxWidth: '1240px',
+        width: '1240px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
 
-    // }
+    textFieldsContainer: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        marginBottom: '40px',
+    },
 }
 
 class Form extends Component {
@@ -19,21 +29,31 @@ class Form extends Component {
     }
 
     state = {
-        companyName: ''
+        companyName: '',
+        appliedFrom: '',
+        position: '',
+        dateApplied: new Date().toLocaleDateString('en-US'),
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
 
         const db = getDatabase()
-        const dbRef = ref(db, 'list')
+        const dbRef = ref(db, 'listOfCompanies')
         const postData = push(dbRef)
+
         set(postData, {
-            companyName: this.state.companyName
+            companyName: this.state.companyName,
+            appliedFrom: this.state.appliedFrom,
+            position: this.state.position,
+            dateApplied: this.state.dateApplied
         })
 
         this.setState({
-            companyName: ''
+            companyName: '',
+            appliedFrom: '',
+            position: '',
+            dateApplied: new Date().toLocaleDateString('en-US')
         })
     }
 
@@ -46,16 +66,48 @@ class Form extends Component {
 
     render() {
         return(
-            <form onSubmit={this.handleSubmit}>
-                <TextField 
-                    label='Company Name'
-                    placeholder='Name'
-                    name='companyName'
-                    value={this.state.companyName}
-                    onChange={this.handleChange}
-                />
+            <form className={this.props.classes.formContainer} onSubmit={this.handleSubmit}>
+                <div className={this.props.classes.textFieldsContainer}>
+                    <TextField 
+                        label='Company Name'
+                        name='companyName'
+                        value={this.state.companyName}
+                        onChange={this.handleChange}
+                        variant='outlined'
+                        style={{width: '600px', marginRight: '10px', marginBottom: '20px'}}
+                    />
+                    <TextField 
+                        label='Applied From'
+                        name='appliedFrom'
+                        value={this.state.appliedFrom}
+                        onChange={this.handleChange}
+                        variant='outlined'
+                        style={{width: '600px', marginLeft: '10px', marginBottom: '20px'}}
+                    />
+                    <TextField 
+                        label='Position'
+                        name='position'
+                        value={this.state.position}
+                        onChange={this.handleChange}
+                        variant='outlined'
+                        style={{width: '600px', marginRight: '10px'}}
+                    />
+                    <TextField 
+                        label='Date Applied'
+                        name='dateApplied'
+                        value={this.state.dateApplied}
+                        onChange={this.handleChange}
+                        variant='outlined'
+                        style={{width: '600px', marginLeft: '10px'}}
+                    />
+                </div>
                 
-                <Button type='submit'>Submit</Button>
+                <Button 
+                    style={{textTransform: 'capitalize', fontSize: '16pt', padding: '10px 32px', backgroundColor: '#bd9860', color: '#252525', boxShadow: 'none', width: '200px', margin: '0 auto'}} 
+                    type='submit'
+                >
+                        Submit
+                </Button>
             </form>
             
         )

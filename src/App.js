@@ -25,8 +25,11 @@ class App extends Component {
         return (
             <div className="main">
                 <Title />
-                <Form />
-                <DisplayData />
+
+                <div style={{width: 'calc(100% - 200px)', margin: '50px auto 0 auto'}}>
+                    <Form />
+                    <DisplayData />
+                </div>
             </div>
         )
     }
